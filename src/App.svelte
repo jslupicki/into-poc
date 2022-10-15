@@ -1,25 +1,29 @@
 <script lang="ts">
-	export let name: string;
-	export let surname: string;
-	export let counter: number = 0;
-	let color = "red";
+	import {logged} from './global_storages.js'
+	import MainPage from './main/Main.svelte';
+	import LoginPage from './login/Login.svelte';
 
-	function increment() {
-		counter += 1;
-		console.log(`Set counter to ${counter}`)
+	let page = LoginPage
+	let loggedValue
+
+	const unsubscribe = logged.subscribe(value => {
+		loggedValue = value;
+	});
+
+	function loggedEventArrive(event) {
+		page = MainPage
+		console.log('Got logged: ' + event.detail.login)
 	}
-	function decrement() {
-		counter -= 1;
-		console.log(`Set counter to ${counter}`)
-	}
+
 </script>
 
 <main>
-	<h1>Hello {name} {surname} {counter}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	<button on:click={increment}>+</button>
-	<button on:click={decrement}>-</button>
-	<h2 on:mouseenter={() => color = "red"} on:mouseleave={() => color = "green"} style="color: {color};">HELLO</h2>
+	<div>
+		Currently logged:
+		<div>Login: {loggedValue.login}</div>
+		<div>Password: {loggedValue.password}</div>
+	</div>
+	<svelte:component this={page} on:logged={loggedEventArrive}/>
 </main>
 
 <style>
