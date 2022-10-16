@@ -1,7 +1,7 @@
 <script lang="ts">
-	import {logged} from './global_storages.js'
-	import MainPage from './main/Main.svelte';
-	import LoginPage from './login/Login.svelte';
+	import {logged} from './lib/storages.js'
+	import MainPage from './lib/Main.svelte';
+	import LoginPage from './lib/Login.svelte';
 
 	let page = LoginPage
 	let loggedValue
@@ -19,9 +19,7 @@
 
 <main>
 	<div>
-		Currently logged:
-		<div>Login: {loggedValue.login}</div>
-		<div>Password: {loggedValue.password}</div>
+		Currently logged: {loggedValue.login} / {loggedValue.password}
 	</div>
 	<svelte:component this={page} on:logged={loggedEventArrive}/>
 </main>
@@ -32,13 +30,6 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
 	}
 
 	@media (min-width: 640px) {
