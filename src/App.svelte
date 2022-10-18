@@ -2,7 +2,13 @@
 	import {logged} from './lib/storages.js'
 	import MainPage from './lib/Main.svelte';
 	import LoginPage from './lib/Login.svelte';
+	import BottomAppBar, {
+    	Section,
+    	AutoAdjust,
+	} from '@smui-extra/bottom-app-bar';
+	import IconButton from '@smui/icon-button';
 
+	let bottomAppBar: BottomAppBar;
 	let page = LoginPage
 	let loggedValue
 
@@ -17,12 +23,17 @@
 
 </script>
 
-<main>
-	<div>
-		Currently logged: {loggedValue.login} / {loggedValue.password}
-	</div>
-	<svelte:component this={page} on:logged={loggedEventArrive}/>
-</main>
+<div>
+	<AutoAdjust {bottomAppBar}>
+		<svelte:component this={page} on:logged={loggedEventArrive}/>
+	</AutoAdjust>
+
+	<BottomAppBar bind:this={bottomAppBar}>
+		<Section>
+			Currently logged: {loggedValue.login} / {loggedValue.password}
+		</Section>
+	</BottomAppBar>
+</div>
 
 <style>
 </style>
