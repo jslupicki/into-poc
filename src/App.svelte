@@ -47,7 +47,10 @@
 
     <BottomAppBar bind:this={bottomAppBar}>
         <Section>
-            User {loggedValue.login} Settings: {JSON.stringify(localSettings)}
+            Settings: {JSON.stringify(localSettings)}
+        </Section>
+        <Section>
+            User {loggedValue.login}
         </Section>
     </BottomAppBar>
 </div>
