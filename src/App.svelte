@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {logged} from './lib/storages.js'
+    import {logged, settings} from './lib/storages.js'
     import MainPage from './lib/Main.svelte';
     import LoginPage from './lib/Login.svelte';
     import BottomAppBar, {
@@ -12,10 +12,13 @@
     let bottomAppBar: BottomAppBar;
     let page = LoginPage
     let loggedValue
-	let settings = {}
+	let localSettings = {}
 
     const loggedSubscription = logged.subscribe(value => {
         loggedValue = value;
+    });
+    const settingsSubscription = settings.subscribe(value => {
+        localSettings = value;
     });
 
     function loggedEventArrive(event) {
@@ -28,7 +31,7 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                settings = data;
+                settings.update(_ => data);
             }).catch(error => {
             console.log(error);
             return [];
@@ -44,7 +47,7 @@
 
     <BottomAppBar bind:this={bottomAppBar}>
         <Section>
-            User {loggedValue.login} Settings: {JSON.stringify(settings)}
+            User {loggedValue.login} Settings: {JSON.stringify(localSettings)}
         </Section>
     </BottomAppBar>
 </div>
