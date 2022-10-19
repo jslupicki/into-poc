@@ -2,17 +2,14 @@
     import {logged, settings} from './lib/storages.js'
     import MainPage from './lib/Main.svelte';
     import LoginPage from './lib/Login.svelte';
-    import BottomAppBar, {
-        Section,
-        AutoAdjust,
-    } from '@smui-extra/bottom-app-bar';
+    import BottomAppBar, { Section, AutoAdjust } from '@smui-extra/bottom-app-bar';
     import logo from './assets/images/seba_logo.svg';
-    import {onMount} from "svelte";
+    import {onMount} from 'svelte';
 
     let bottomAppBar: BottomAppBar;
     let page = LoginPage
     let loggedValue
-	let localSettings = {}
+    let localSettings = {}
 
     const loggedSubscription = logged.subscribe(value => {
         loggedValue = value;
@@ -32,10 +29,15 @@
             .then(data => {
                 console.log(data);
                 settings.update(_ => data);
-            }).catch(error => {
-            console.log(error);
-            return [];
-        });
+            })
+            .catch(error => {
+                console.log(error);
+                let env = {
+                    test: import.meta.env.VITE_test
+                };
+                settings.update(_ => env);
+                return [];
+            });
     });
 </script>
 
