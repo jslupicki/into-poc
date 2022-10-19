@@ -6,7 +6,7 @@
     	Section,
     	AutoAdjust,
 	} from '@smui-extra/bottom-app-bar';
-	import IconButton from '@smui/icon-button';
+	import logo from './assets/images/seba_logo.svg';
 
 	let bottomAppBar: BottomAppBar;
 	let page = LoginPage
@@ -24,16 +24,14 @@
 </script>
 
 <div>
+	<img src={logo}/>
 	<AutoAdjust {bottomAppBar}>
 		<svelte:component this={page} on:logged={loggedEventArrive}/>
 	</AutoAdjust>
 
 	<BottomAppBar bind:this={bottomAppBar}>
 		<Section>
-			Currently logged: {loggedValue.login} / {loggedValue.password}
+			User {loggedValue.login}
 		</Section>
 	</BottomAppBar>
 </div>
-
-<style>
-</style>
