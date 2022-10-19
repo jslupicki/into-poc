@@ -1,7 +1,8 @@
 module.exports = async function (context, req) {
-    let test = process.env["test"];
 
-    const responseMessage = "test = " + test;
+    const responseMessage = {
+            test: process.env["test"]
+        };
 
     context.res = {
         // status: 200, /* Defaults to 200 */
