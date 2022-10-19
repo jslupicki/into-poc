@@ -12,9 +12,17 @@
 	let page = LoginPage
 	let loggedValue
 
-	const unsubscribe = logged.subscribe(value => {
+	const loggedSubscription = logged.subscribe(value => {
 		loggedValue = value;
 	});
+
+	let testConfig = 'unknown';
+
+	try {
+		let testConfig = process.env.test;
+	} catch (e: Error) {
+		console.log('Got error: ' + e.message)
+	}
 
 	function loggedEventArrive(event) {
 		page = MainPage
@@ -31,7 +39,7 @@
 
 	<BottomAppBar bind:this={bottomAppBar}>
 		<Section>
-			User {loggedValue.login}
+			User {loggedValue.login} [{testConfig}]
 		</Section>
 	</BottomAppBar>
 </div>
