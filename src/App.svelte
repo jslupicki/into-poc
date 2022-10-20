@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {logged, settings} from './lib/storages.js'
+    import {logged, refreshSettings, settings} from './lib/storages.js'
     import MainPage from './lib/Main.svelte';
     import LoginPage from './lib/Login.svelte';
     import BottomAppBar, { Section, AutoAdjust } from '@smui-extra/bottom-app-bar';
@@ -23,22 +23,7 @@
         console.log('Got logged: ' + event.detail.login)
     }
 
-    onMount(async () => {
-        fetch("/api/Settings")
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                settings.update(_ => data);
-            })
-            .catch(error => {
-                console.log(error);
-                let env = {
-                    test: import.meta.env.VITE_test
-                };
-                settings.update(_ => env);
-                return [];
-            });
-    });
+    onMount(async () => refreshSettings());
 </script>
 
 <div>
