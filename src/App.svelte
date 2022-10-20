@@ -2,7 +2,7 @@
     import {logged, refreshSettings, settings} from './lib/storages.js'
     import MainPage from './lib/Main.svelte';
     import LoginPage from './lib/Login.svelte';
-    import BottomAppBar, { Section, AutoAdjust } from '@smui-extra/bottom-app-bar';
+    import BottomAppBar, {Section, AutoAdjust} from '@smui-extra/bottom-app-bar';
     import logo from './assets/images/seba_logo.svg';
     import {onMount} from 'svelte';
 
