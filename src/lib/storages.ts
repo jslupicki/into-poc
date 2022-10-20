@@ -17,7 +17,8 @@ export function refreshSettings() {
         .catch(error => {
             console.log(error);
             let env = {
-                test: import.meta.env.VITE_test
+                test: import.meta.env.VITE_test,
+                into_upload_file_url: import.meta.env.VITE_into_upload_file_url
             };
             settings.update(_ => env);
             return [];
