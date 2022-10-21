@@ -3,7 +3,6 @@
     import {logged} from "./storages.js";
     import Button, { Label } from '@smui/button';
     import Textfield from '@smui/textfield';
-    import HelperText from '@smui/textfield/helper-text';
 
     const dispatch = createEventDispatcher();
     let login: string = '';
