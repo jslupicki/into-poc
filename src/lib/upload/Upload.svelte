@@ -3,8 +3,19 @@
     import Textfield from '@smui/textfield';
     import {logged, settings} from '../storages.js'
     import {get} from "svelte/store";
+    import Dropzone from "svelte-file-dropzone";
 
-    let fileVar:File[] = [];
+    let fileVar: File[] = [];
+    let files = {
+        accepted: [],
+        rejected: []
+    };
+
+    function handleFilesSelect(e) {
+        const {acceptedFiles, fileRejections} = e.detail;
+        files.accepted = [...files.accepted, ...acceptedFiles];
+        files.rejected = [...files.rejected, ...fileRejections];
+    }
 
     function upload() {
         let login = get(logged).login
@@ -38,6 +49,16 @@
         >
         </Textfield>
     </div>
+    <br>
+    <div>
+        <Dropzone on:drop={handleFilesSelect}/>
+    </div>
+    <br>
+    <ol>
+        {#each files.accepted as item}
+            <li>{item.name}</li>
+        {/each}
+    </ol>
     <br>
     <div class="horizontal-center">
         <Button on:click={upload} variant="raised" class="button-shaped-round">
