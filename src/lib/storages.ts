@@ -15,7 +15,7 @@ export function refreshSettings() {
             settings.update(_ => data);
         })
         .catch(error => {
-            console.log(error);
+            console.log('Failed to read settings from server. Caused by %s', error);
             let env = {
                 into_upload_file_url: import.meta.env.VITE_into_upload_file_url
             };
