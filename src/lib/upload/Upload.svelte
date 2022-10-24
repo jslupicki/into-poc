@@ -1,15 +1,19 @@
 <script lang="ts">
     import Button, {Label} from '@smui/button';
-    import Textfield from '@smui/textfield';
     import {logged, settings} from '../storages.js'
     import {get} from "svelte/store";
     import Dropzone from "svelte-file-dropzone";
+    import Snackbar, { Actions } from '@smui/snackbar';
+    import IconButton from '@smui/icon-button';
+    import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
 
-    let fileVar: File[] = [];
     let files = {
         accepted: [],
         rejected: []
     };
+    let snackbarSuccess: Snackbar;
+    let snackbarError: Snackbar;
+    let snackbarMessage = '';
 
     function handleFilesSelect(e) {
         const {acceptedFiles, fileRejections} = e.detail;
@@ -17,55 +21,84 @@
         files.rejected = [...files.rejected, ...fileRejections];
     }
 
-    function upload() {
-        let login = get(logged).login
-        let uploadUrl = get(settings)['into_upload_file_url']
+    async function uploadFile(file: File): Promise<Response> {
+        const login = get(logged).login
+        const uploadUrl = get(settings)['into_upload_file_url']
 
         const formData = new FormData();
-        formData.append('file', fileVar[0], fileVar[0].name);
+        formData.append('file', file, file.name);
         formData.append('login', login);
 
-        console.log('About to upload as "%s" file "%s" to %s', login, fileVar[0].name, uploadUrl)
+        console.log('About to upload as "%s" file "%s" to %s', login, file.name, uploadUrl)
 
-        fetch(uploadUrl, {
+        return fetch(uploadUrl, {
             method: 'POST',
             body: formData,
             redirect: 'follow'
         })
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+    }
+
+    function uploadFromDropzone() {
+        let uploadPromise
+        files.accepted.forEach(file => {
+            if (!uploadPromise) {
+                uploadPromise = uploadFile(file)
+            } else {
+                uploadPromise.then(response => uploadFile(file))
+            }
+            uploadPromise.then(response => {
+                console.log('Uploaded %s successfully', file.name);
+                snackbarMessage = `File ${file.name} was successfully uploaded`
+                snackbarSuccess.open();
+                response
+            })
+        })
     }
 </script>
 
 <div class="upload">
     <div>
-        <Textfield
-                class="shaped-outlined"
-                variant="outlined"
-                type="file"
-                bind:files={fileVar}
-                label="Upload"
-        >
-        </Textfield>
-    </div>
-    <br>
-    <div>
         <Dropzone on:drop={handleFilesSelect}/>
     </div>
     <br>
-    <ol>
+    <DataTable style="max-width: 100%;">
+        <Head>
+            <Row>
+                <Cell>File name</Cell>
+                <Cell numeric>Size</Cell>
+            </Row>
+            <title>Files to upload</title>
+        </Head>
+        <Body>
         {#each files.accepted as item}
-            <li>{item.name}</li>
+        <Row>
+            <Cell>{item.name}</Cell>
+            <Cell numeric>{item.size}</Cell>
+        </Row>
         {/each}
-    </ol>
+        </Body>
+    </DataTable>
     <br>
     <div class="horizontal-center">
-        <Button on:click={upload} variant="raised" class="button-shaped-round">
+        <Button on:click={uploadFromDropzone} variant="raised" class="button-shaped-round">
             <Label>Upload</Label>
         </Button>
     </div>
 </div>
+
+<Snackbar bind:this={snackbarSuccess} class="snackbar-success">
+    <Label>{snackbarMessage}</Label>
+    <Actions>
+        <IconButton class="material-icons" title="Dismiss">close</IconButton>
+    </Actions>
+</Snackbar>
+
+<Snackbar bind:this={snackbarError} class="snackbar-error">
+    <Label>{snackbarMessage}</Label>
+    <Actions>
+        <IconButton class="material-icons" title="Dismiss">close</IconButton>
+    </Actions>
+</Snackbar>
 
 <style>
 </style>

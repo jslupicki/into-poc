@@ -59,11 +59,6 @@
     }
 
     .login > *:first-child {
-        margin-top: 0px;
-    }
-
-    .horizontal-center {
-        display: flex;
-        justify-content: center;
+        margin-top: 0;
     }
 </style>
