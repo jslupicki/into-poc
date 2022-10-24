@@ -36,6 +36,7 @@
         display: flex;
         overflow: hidden;
         z-index: 0;
+        height: inherit;
     }
 
     * :global(.app-content) {
@@ -48,7 +49,7 @@
     .main-content {
         overflow: auto;
         padding: 16px;
-        height: 100%;
         box-sizing: border-box;
+        height: -webkit-fill-available;
     }
 </style>

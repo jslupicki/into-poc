@@ -3,9 +3,9 @@
     import {logged, settings} from '../storages.js'
     import {get} from "svelte/store";
     import Dropzone from "svelte-file-dropzone";
-    import Snackbar, { Actions } from '@smui/snackbar';
+    import Snackbar, {Actions} from '@smui/snackbar';
     import IconButton from '@smui/icon-button';
-    import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
+    import DataTable, {Body, Cell, Head, Row} from '@smui/data-table';
 
     let files = {
         accepted: [],
@@ -56,11 +56,8 @@
     }
 </script>
 
-<div class="upload">
-    <div>
-        <Dropzone on:drop={handleFilesSelect}/>
-    </div>
-    <br>
+<Dropzone on:drop={handleFilesSelect}/>
+<br>
 {#if files.accepted.length > 0}
     <DataTable style="max-width: 100%;">
         <Head>
@@ -71,22 +68,22 @@
             <title>Files to upload</title>
         </Head>
         <Body>
-    {#each files.accepted as item}
-        <Row>
-            <Cell>{item.name}</Cell>
-            <Cell numeric>{item.size}</Cell>
-        </Row>
-    {/each}
+        {#each files.accepted as item}
+            <Row>
+                <Cell>{item.name}</Cell>
+                <Cell numeric>{item.size}</Cell>
+            </Row>
+        {/each}
         </Body>
     </DataTable>
 {/if}
-    <br>
-    <div class="horizontal-center">
-        <Button on:click={uploadFromDropzone} variant="raised" class="button-shaped-round">
-            <Label>Upload</Label>
-        </Button>
-    </div>
+<br>
+<div class="horizontal-center">
+    <Button on:click={uploadFromDropzone} variant="raised" class="button-shaped-round">
+        <Label>Upload</Label>
+    </Button>
 </div>
+
 
 <Snackbar bind:this={snackbarSuccess} class="snackbar-success">
     <Label>{snackbarMessage}</Label>

@@ -26,20 +26,18 @@
     onMount(async () => refreshSettings());
 </script>
 
-<div>
-    <img src={logo}/>
-    <AutoAdjust {bottomAppBar}>
-        <svelte:component this={page} on:logged={loggedEventArrive}/>
-    </AutoAdjust>
+<img src={logo}/>
+<AutoAdjust {bottomAppBar}>
+    <svelte:component this={page} on:logged={loggedEventArrive}/>
+</AutoAdjust>
 
-    <BottomAppBar bind:this={bottomAppBar}>
-        <Section>
-            <!--
-            Settings: {JSON.stringify(localSettings)}
-            -->
-        </Section>
-        <Section>
-            User {loggedValue.login}
-        </Section>
-    </BottomAppBar>
-</div>
+<BottomAppBar bind:this={bottomAppBar}>
+    <Section>
+        <!--
+        Settings: {JSON.stringify(localSettings)}
+        -->
+    </Section>
+    <Section>
+        User {loggedValue.login}
+    </Section>
+</BottomAppBar>
