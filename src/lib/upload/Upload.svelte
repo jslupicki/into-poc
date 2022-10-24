@@ -71,12 +71,12 @@
             <title>Files to upload</title>
         </Head>
         <Body>
-{#each files.accepted as item}
+    {#each files.accepted as item}
         <Row>
             <Cell>{item.name}</Cell>
             <Cell numeric>{item.size}</Cell>
         </Row>
-{/each}
+    {/each}
         </Body>
     </DataTable>
 {/if}
