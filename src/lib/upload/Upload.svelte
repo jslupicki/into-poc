@@ -61,6 +61,7 @@
         <Dropzone on:drop={handleFilesSelect}/>
     </div>
     <br>
+{#if files.accepted.length > 0}
     <DataTable style="max-width: 100%;">
         <Head>
             <Row>
@@ -70,14 +71,15 @@
             <title>Files to upload</title>
         </Head>
         <Body>
-        {#each files.accepted as item}
+{#each files.accepted as item}
         <Row>
             <Cell>{item.name}</Cell>
             <Cell numeric>{item.size}</Cell>
         </Row>
-        {/each}
+{/each}
         </Body>
     </DataTable>
+{/if}
     <br>
     <div class="horizontal-center">
         <Button on:click={uploadFromDropzone} variant="raised" class="button-shaped-round">
