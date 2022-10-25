@@ -26,7 +26,10 @@
     onMount(async () => refreshSettings());
 </script>
 
-<img src={logo} alt=""/>
+<div id="header">
+    <img src={logo} alt=""/>
+    <span>{localSettings.environment}</span>
+</div>
 <svelte:component this={page} on:logged={loggedEventArrive}/>
 <!--
 <AutoAdjust {bottomAppBar}>
@@ -47,4 +50,7 @@
 -->
 
 <style>
+    #header {
+        display: flex;
+    }
 </style>
