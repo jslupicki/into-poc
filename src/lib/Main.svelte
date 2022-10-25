@@ -8,7 +8,7 @@
 </script>
 
 <div class="drawer-container">
-    <Drawer>
+    <Drawer class="main-drawer">
         <Content>
             <List>
                 <Item on:click={() => (page = survey)} >
@@ -36,7 +36,7 @@
         display: flex;
         overflow: hidden;
         z-index: 0;
-        height: inherit;
+        height: 100%;
     }
 
     * :global(.app-content) {
@@ -46,10 +46,16 @@
         flex-grow: 1;
     }
 
+    * :global(.main-drawer) {
+        height: min-content;
+    }
+
     .main-content {
         overflow: auto;
         padding: 16px;
         box-sizing: border-box;
-        height: -webkit-fill-available;
+        background-color: white;
+        height: 100%;
     }
+
 </style>

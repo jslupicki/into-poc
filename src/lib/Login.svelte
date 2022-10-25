@@ -21,7 +21,7 @@
 <div class="login">
     <div>
         <Textfield
-            class="shaped-outlined"
+            class="shaped-outlined login-field"
             variant="outlined"
             bind:value={login}
             label="Login"
@@ -30,7 +30,7 @@
     </div>
     <div>
         <Textfield
-            class="shaped-outlined"
+            class="shaped-outlined login-field"
             variant="outlined"
             bind:value={password}
             label="Password"
@@ -51,10 +51,12 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 1em;
+        border-radius: 15px;
     }
 
     .login > * {
-        display: block;
         margin-top: 1em;
     }
 

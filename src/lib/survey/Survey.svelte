@@ -14,8 +14,8 @@ Survey<br><br>
                 width: 700px;
 
          */
-        height: inherit;
-        margin-left: auto;
-        margin-right: auto;
+        height: -webkit-fill-available;
+        padding: 1em;
+        overflow: hidden;
     }
 </style>

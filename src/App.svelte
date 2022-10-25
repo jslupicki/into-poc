@@ -26,7 +26,9 @@
     onMount(async () => refreshSettings());
 </script>
 
-<img src={logo}/>
+<img src={logo} alt=""/>
+<svelte:component this={page} on:logged={loggedEventArrive}/>
+<!--
 <AutoAdjust {bottomAppBar}>
     <svelte:component this={page} on:logged={loggedEventArrive}/>
 </AutoAdjust>
@@ -36,8 +38,13 @@
         <!--
         Settings: {JSON.stringify(localSettings)}
         -->
+<!--
     </Section>
     <Section>
         User {loggedValue.login}
     </Section>
 </BottomAppBar>
+-->
+
+<style>
+</style>
