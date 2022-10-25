@@ -21,7 +21,7 @@
 <div class="login">
     <div>
         <Textfield
-            class="shaped-outlined login-field"
+            class="shaped-outlined"
             variant="outlined"
             bind:value={login}
             label="Login"
@@ -30,7 +30,7 @@
     </div>
     <div>
         <Textfield
-            class="shaped-outlined login-field"
+            class="shaped-outlined"
             variant="outlined"
             bind:value={password}
             label="Password"

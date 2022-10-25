@@ -1,5 +1,6 @@
 <script lang="ts">
     import {onMount} from 'svelte';
+    import {renderSurvey} from '../common';
 
     onMount(async () => renderSurvey('embed_survey', 'Jan', 'Kowalski', 'en-US', 'US'));
 </script>
@@ -9,11 +10,6 @@ Survey<br><br>
 
 <style>
     #embed_survey {
-        /*
-                height: 800px;
-                width: 700px;
-
-         */
         height: -webkit-fill-available;
         padding: 1em;
         overflow: hidden;
