@@ -1,15 +1,22 @@
 <script lang="ts">
-    import {logged, refreshSettings, settings} from './lib/storages.js'
+    import {logged, refreshSettings, settings, type SettingsType} from './lib/storages.js'
     import MainPage from './lib/Main.svelte';
     import LoginPage from './lib/Login.svelte';
+/*  
     import BottomAppBar, {Section, AutoAdjust} from '@smui-extra/bottom-app-bar';
+*/
     import logo from './assets/images/seba_logo.svg';
     import {onMount} from 'svelte';
 
+/*
     let bottomAppBar: BottomAppBar;
+*/
     let page = LoginPage
     let loggedValue
-    let localSettings = {}
+    let localSettings: SettingsType = {
+        into_upload_file_url: '',
+        environment: ''
+    }
 
     const loggedSubscription = logged.subscribe(value => {
         loggedValue = value;

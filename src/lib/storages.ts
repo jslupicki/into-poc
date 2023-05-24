@@ -1,11 +1,16 @@
-import {writable} from 'svelte/store';
+import {writable, type Writable} from 'svelte/store';
+
+export type SettingsType = {
+    into_upload_file_url: string,
+    environment: string
+}
 
 export const logged = writable({
     login: '???',
     password: '???'
 });
 
-export const settings = writable({})
+export const settings: Writable<SettingsType> = writable()
 
 export function refreshSettings() {
     fetch("/api/Settings")
